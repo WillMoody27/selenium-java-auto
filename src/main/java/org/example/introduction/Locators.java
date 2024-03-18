@@ -11,11 +11,9 @@ public class Locators {
         // Chrome
         System.setProperty("webdriver.chrome.driver", "/Users/williamhellems-moody/Documents/selenium-drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); // Implicit Wait - 5 second wait before throwing an exception.
 
-        // Implicit Wait - Selenium waits for 5 seconds before throwing an exception. Assist with synchronization issues.
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-        driver.get("<ENTER URL>");
+         driver.get("<ENTER URL>");
 
         // Locators
         driver.findElement(By.id("inputUsername")).sendKeys("william");
@@ -33,8 +31,29 @@ public class Locators {
         *      input[name='inputPassword']
         * -- Construct a CSS selector using class to identify the element
         *       input[placeholder="Username"]
+        *
+        * -- Construct a CSS selector using class to identify the element
+        *    Tagname[attribute='value']
         * */
 
         System.out.println(driver.findElement(By.cssSelector("p.error")).getText()); // extract text from error message
+
+        // Obtain Link Text
+        driver.findElement(By.linkText("Forgot your password?")).click();
+
+        /*
+        *
+        * Xpath - XML Path -> Alternative to obtaining the element
+        * - Construct a Xpath using tagname and id
+        *
+        * Ex.
+        * <input type="text" placeholder="Name">
+        * //input[@placeholder=’ Name’]
+        *
+        *  From Console/Inspect $x('//input[@placeholder="Name"]')
+        * */
+
+        driver.findElement(By.xpath("//input[@placeholder='Name']")).sendKeys("William");
+
     }
 }
